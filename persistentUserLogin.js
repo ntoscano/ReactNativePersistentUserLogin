@@ -65,6 +65,24 @@ var loginPage = React.createClass({
     })
   },
 
+  getUser: function (userId) {
+    return fetch(GET_USER_REQUEST_URL + userId, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    });
+  },
+
+  logout: function(){
+    fetch(LOGOUT_REQUEST_URL, {
+      method: 'GET'
+    }).then(function () {
+      AsyncStorage.multiRemove(['userId', 'token']);
+    });
+  },
+
   render: function() {
     if (!this.state.token) { 
       return (
